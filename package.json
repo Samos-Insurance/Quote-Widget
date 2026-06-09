@@ -1,0 +1,44 @@
+{
+  "name": "quote-widget",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Embedded quote widget",
+  "main": "src/widget/quote-widget.js",
+  "scripts": {
+    "dev": "next dev -p 5000",
+    "build:prod": "cross-env BUILD_ENV=prod node build.js",
+    "build:dev": "cross-env BUILD_ENV=dev node build.js",
+    "deploy:prod": "npm run build:prod && serverless deploy --stage prod",
+    "deploy:dev": "npm run build:dev && serverless deploy --stage dev",
+    "dev-deploy":"npm run build:dev && aws s3 cp dist/dev/widget.js s3://dev-quote-widget-bucket/widget.js --cache-control 'no-cache'",
+    "start": "next start -p 5000",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/your-repo.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
+    "esbuild": "^0.28.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "serverless": "^3.40.0",
+    "serverless-s3-sync": "^3.5.1",
+    "serverless-webpack": "^5.15.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,24 @@
+service: quote-widget
+
+frameworkVersion: "^3.38.0"
+  
+
+provider:
+  name: aws
+  region: ca-central-1
+  runtime: nodejs20.x
+
+plugins:
+  - serverless-s3-sync
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  bucketMap:
+    prod: quote-widget-bucket
+    dev: dev-quote-widget-bucket
+
+  bucketName: ${self:custom.bucketMap.${self:custom.stage}}
+  s3Sync:
+    - bucketName: ${self:custom.bucketName}
+      localDir: dist/${self:custom.stage}
+      deleteRemoved: true
