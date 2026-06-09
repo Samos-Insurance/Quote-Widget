@@ -1,22 +1,23 @@
 {
   "name": "quote-widget",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "description": "Embedded quote widget",
-  "main": "src/widget/quote-widget.js",
+  "main": "dist/npm/widget.js",
+  "types": "dist/types/quote-widget.d.ts",
   "scripts": {
     "dev": "next dev -p 5000",
+    "build:types": "tsc",
     "build:prod": "cross-env BUILD_ENV=prod node build.js",
     "build:dev": "cross-env BUILD_ENV=dev node build.js",
+    "build": "npm run build:types && npm run build:prod",
     "deploy:prod": "npm run build:prod && serverless deploy --stage prod",
     "deploy:dev": "npm run build:dev && serverless deploy --stage dev",
-    "dev-deploy":"npm run build:dev && aws s3 cp dist/dev/widget.js s3://dev-quote-widget-bucket/widget.js --cache-control 'no-cache'",
     "start": "next start -p 5000",
     "lint": "eslint"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/your-repo.git"
+    "url": "git+https://github.com/Samos-Insurance/Quote-Widget.git"
   },
   "publishConfig": {
     "access": "public"
@@ -39,6 +40,6 @@
     "serverless-s3-sync": "^3.5.1",
     "serverless-webpack": "^5.15.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }

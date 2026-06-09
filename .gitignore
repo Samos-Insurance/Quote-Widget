@@ -12,7 +12,7 @@
 /.next
 /.serverless
 /app
-/dist
+/dist/*
 
 
 # testing
@@ -44,3 +44,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+dist/*

@@ -162,19 +162,19 @@
       break;
 
 
-    case "LANGUAGE":
-      if (payload?.lang) {
-        //console.log("Language received from iframe:", payload.lang);
+    // case "LANGUAGE":
+    //   if (payload?.lang) {
+    //     //console.log("Language received from iframe:", payload.lang);
 
-        // return via callback
-        if (typeof config.onLanguageChange === "function") {
-          config.onLanguageChange(payload.lang);
-        }
+    //     // return via callback
+    //     if (typeof config.onLanguageChange === "function") {
+    //       config.onLanguageChange(payload.lang);
+    //     }
 
-        // optional: store globally
-        global.__QUOTE_WIDGET_LANG__ = payload.lang;
-      }
-      break;
+    //     // optional: store globally
+    //     global.__QUOTE_WIDGET_LANG__ = payload.lang;
+    //   }
+    //   break;
 
     default:
       break;
