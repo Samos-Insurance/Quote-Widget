@@ -77,7 +77,7 @@ jobs:
         run: |
           npm ci
           # Pass the mapped matrix variables directly into the build script
-          BUILD_ENV=${{ matrix.environment }} BASE_URL=${{ matrix.BASE_URL }} npm run build 
+          BASE_URL=${{ matrix.BASE_URL }} npm run build:${{ matrix.environment }} 
 
       - name: Generate SRI Hash for CDN
         if: github.ref == matrix.branch
