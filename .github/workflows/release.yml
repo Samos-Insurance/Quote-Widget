@@ -98,7 +98,7 @@ jobs:
         if: github.ref == matrix.branch
         run: |
           npm install -g @sigstore/cli
-          sigstore sign dist/${{ matrix.environment }}/${{ steps.sri.outputs.file_path }} --out dist/${{ matrix.environment }}/${{ steps.sri.outputs.file_path }}.sig
+          sigstore attest dist/${{ matrix.environment }}/${{ steps.sri.outputs.file_path }} --output-file dist/${{ matrix.environment }}/${{ steps.sri.outputs.file_path }}.sig
 
       - name: Publish to NPM with Provenance
         # Double condition: Must match the branch AND only publish to NPM on the prod run
