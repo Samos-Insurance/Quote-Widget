@@ -14,8 +14,8 @@ if (!BASE_URL) {
 esbuild.build({
   // Tell esbuild to take the source file and output it to TWO different locations
   entryPoints: [
-    { out: `${env}/v${packageJson.version}/widget`, in: "src/widget/quote-widget.ts" }, // For S3 CDN
-    { out: `npm/widget`, in: "src/widget/quote-widget.ts" } // For NPM Users
+    { out: `${env}/v${packageJson.version}/widget`, in: "src/widget/quote-widget.js" }, // For S3 CDN
+    { out: `npm/widget`, in: "src/widget/quote-widget.js" } // For NPM Users
   ],
   bundle: true,
   minify: true,
