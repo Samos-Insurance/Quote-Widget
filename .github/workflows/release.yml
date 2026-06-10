@@ -3,9 +3,8 @@ name: Release Widget (NPM & S3)
 on:
   push:
     branches:
-      - development
+      - develop
       - main
-      # You can easily add - sandbox or - release here later
 
 jobs:
   # ==========================================
@@ -51,7 +50,7 @@ jobs:
         environment: [dev, prod]
         include:
           - environment: dev
-            branch: refs/heads/development
+            branch: refs/heads/develop
             BASE_URL: ${{ vars.DEV_BASE_URL }}
             CDN_DOMAIN: ${{ vars.DEV_CDN }}
           
