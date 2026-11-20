@@ -102,7 +102,7 @@ jobs:
 
       - name: Publish to NPM with Provenance
         # Double condition: Must match the branch AND only publish to NPM on the prod run
-        if: github.ref == matrix.branch && matrix.environment == 'prod'
+        if: false && (github.ref == matrix.branch && matrix.environment == 'prod')
         run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
