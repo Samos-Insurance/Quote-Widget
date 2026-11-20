@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Samos Quote Widget: Integration & Security Guide
 
-## Getting Started
+## Overview
+The Samos Quote Widget is a secure, embeddable JavaScript application that allows partners to seamlessly integrate the Samos quoting and activation flows directly into their own websites. 
 
-First, run the development server:
+## Why We Are More Secure
+Unlike traditional embedded scripts that expose partners to supply-chain attacks and cross-site scripting (XSS), the Samos Quote Widget is built on a zero-trust, cryptographically verified pipeline.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1. Cryptographic Subresource Integrity (SRI)
+Every release of our widget generates a unique SHA-384 cryptographic hash. Partners embed this hash via the `integrity` attribute. If a malicious actor were to compromise our CDN and alter even a single byte of the script, the partner's browser will instantly detect the mismatch and block the script from executing.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Cryptographic Signing via Sigstore
+All production assets are cryptographically signed using the Sigstore toolchain before being deployed to our AWS S3 origin. This guarantees the provenance and authenticity of the code, ensuring it was genuinely built by our automated GitHub Actions CI/CD pipeline and not tampered with post-build. We also publish to NPM using strict Provenance.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Immutable Versioning
+We use strict version-locked deployments (e.g., `/v1.0.1/widget.js`). Once a version is deployed, it is immutable. This prevents unexpected automated updates from breaking partner integrations and ensures that browser caching behavior is 100% predictable and secure.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Sandboxed Execution Environment
+The widget core runs entirely within a secure `<iframe>`. We apply a strict `sandbox` attribute (`allow-scripts allow-forms allow-same-origin allow-popups`) and a `strict-origin-when-cross-origin` referrer policy, isolating the widget's execution context from the host page.

@@ -22,3 +22,6 @@ custom:
     - bucketName: ${self:custom.bucketName}
       localDir: dist/${self:custom.stage}
       deleteRemoved: true
+      params:
+        - "**/*.js":
+            CacheControl: 'max-age=31536000'
